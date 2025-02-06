@@ -66,34 +66,38 @@ public class App {
     for (int i = 0; i < vector.length; i++) {
     System.out.println("Posición " + i + ": " + vector[i]);
     }
-    reader.close();
 
     //4
-    System.out.println("Escribe un numero: ");
-    int p = reader.nextInt();
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    try{
+        System.out.println("Escribe un numero: ");
+        int p = reader.nextInt();
+        if ( p < 0) {
+            System.out.println("El valor introducido es positivo.");
+        } else {
+            System.out.println("El valor introducido es negativo.");
+        }
+    } catch (Exception e ) {
+        System.out.println(e.getMessage());
+    } finally {
+        System.out.println("Hasta pronto"); 
+    }
 
 
 
 
     }
-}
+    public void imprimirPositivo (int numPos) throws Positivo {
+        if (numPos < 0) {
+          throw new Positivo(numPos);
+        }
+      }
+  
+      public void imprimirNegativo (int numNeg) throws Negativo {
+          if (numNeg > 0) {
+              throw new Negativo(numNeg);
+          }
+        }
+    
+    }
+
 
