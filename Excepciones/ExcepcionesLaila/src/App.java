@@ -2,10 +2,10 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class App {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
    
     Scanner reader = new Scanner (System.in);
-
+/* 
     //1
     try {
         System.out.println("Escribe un numero entero: ");
@@ -71,32 +71,61 @@ public class App {
     try{
         System.out.println("Escribe un numero: ");
         int p = reader.nextInt();
-        if ( p < 0) {
-            System.out.println("El valor introducido es positivo.");
-        } else {
-            System.out.println("El valor introducido es negativo.");
-        }
-    } catch (Exception e ) {
-        System.out.println(e.getMessage());
-    } finally {
+        
+        imprimirPositivo(p);
+        imprimirNegativo(p);
+  
+
+    } catch (PositivoException e) {
+        System.out.println("El numero es positivo");
+    } catch(NegativoException e){
+        System.out.println("El numero es negativo");
+    } 
+    finally {
         System.out.println("Hasta pronto"); 
     }
+ */
+    
+    //5
+        try {
+            Gato gato1 = new Gato("Dalsy", 2);
+            gato1.imprimir();
 
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        
+        //Nombre mal
+        try {
+            Gato gato1 = new Gato("Pu", 5);
+            gato1.imprimir();
 
+        } catch (NombreException e) {
+            System.out.println(e.getMessage());
+        }
+        
+        //Edad mal
+        try {
+            Gato gato3 = new Gato("Tor", -2);
+            gato3.imprimir();
 
+        } catch (EdadException e) {
+            System.out.println(e.getMessage());
+        }
 
     }
-    public void imprimirPositivo (int numPos) throws Positivo {
-        if (numPos < 0) {
-          throw new Positivo(numPos);
+    public static void imprimirPositivo (int numPos) throws PositivoException {
+        if (numPos > 0) {
+          throw new PositivoException(numPos);
         }
       }
   
-      public void imprimirNegativo (int numNeg) throws Negativo {
-          if (numNeg > 0) {
-              throw new Negativo(numNeg);
+      public static void imprimirNegativo (int numNeg) throws NegativoException {
+          if (numNeg < 0) {
+              throw new NegativoException(numNeg);
           }
         }
+    
     
     }
 
