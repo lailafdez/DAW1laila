@@ -5,7 +5,7 @@ public class App {
     public static void main(String[] args) throws Exception {
    
     Scanner reader = new Scanner (System.in);
- 
+/* 
     //1
     try {
         System.out.println("Escribe un numero entero: ");
@@ -84,24 +84,25 @@ public class App {
     finally {
         System.out.println("Hasta pronto"); 
     }
+ */
     
     //5
-    try {
-        Gato gato1 = new Gato("Dalsy", 2);
-        gato1.imprimir();
-
-    } catch (Exception e) {
-        System.out.println(e.getMessage());
-    }
-        
-    //Nombre mal
         try {
-        Gato gato1 = new Gato("Pu", 5);
-        gato1.imprimir();
+            Gato gato1 = new Gato("Dalsy", 2);
+            gato1.imprimir();
 
-    } catch (NombreException e) {
-        System.out.println(e.getMessage());
-    }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        
+        //Nombre mal
+        try {
+            Gato gato1 = new Gato("Pu", 5);
+            gato1.imprimir();
+
+        } catch (NombreException e) {
+            System.out.println(e.getMessage());
+        }
         
         //Edad mal
         try {
@@ -111,9 +112,6 @@ public class App {
         } catch (EdadException e) {
             System.out.println(e.getMessage());
         }
-
-    //6
-    
 
     }
     public static void imprimirPositivo (int numPos) throws PositivoException {
