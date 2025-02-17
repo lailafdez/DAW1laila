@@ -1,3 +1,4 @@
+
 document.addEventListener('DOMContentLoaded', function() {
   // Obtener referencias a elementos del DOM
   const taskForm = document.getElementById('taskForm');  // Formulario para agregar nuevas tareas
@@ -8,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function() {
   // Inicializar el array de tareas desde el almacenamiento local o un array vacío si no hay datos almacenados
   let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
 
-  // Función para renderizar las tareas en la lista
+  // Función para renderizar las tareas en la lista   FUNCIONA
   function renderTasks() {
       taskList.innerHTML = '';  // Limpiar la lista antes de volver a renderizar
       tasks.forEach((task, index) => {
@@ -21,7 +22,7 @@ document.addEventListener('DOMContentLoaded', function() {
       });
   }
 
-  // Función para eliminar una tarea
+  // Función para eliminar una tarea    ///    EDITAR ESTA PARA QUE FUNCIONE
   function deleteTask(index) {
       tasks.splice(index, 1);  // Eliminar la tarea del array
       localStorage.setItem('tasks', JSON.stringify(tasks));  // Actualizar el almacenamiento local
@@ -29,7 +30,7 @@ document.addEventListener('DOMContentLoaded', function() {
       showMessage('Tarea eliminada correctamente', 'success');  // Mostrar mensaje de éxito
   }
 
-  // Función para mostrar mensajes de éxito o error
+  // Función para mostrar mensajes de éxito o error ///    EDITAR ESTA PARA QUE FUNCIONE
   function showMessage(message, type) {
       messages.innerHTML = `<div class="${type}">${message}</div>`;  // Crear elemento div con mensaje
       setTimeout(() => {
@@ -37,7 +38,9 @@ document.addEventListener('DOMContentLoaded', function() {
       }, 3000);
   }
 
-  // Escuchador de eventos para el formulario de tareas
+  // CREAR MARCAR COMO COMPLETADO
+
+  // Escuchador de eventos para el formulario de tareas    FUNCIONA
   taskForm.addEventListener('submit', function(event) {
       event.preventDefault();  // Evitar el comportamiento predeterminado del formulario
       const newTask = taskInput.value.trim();  // Obtener el valor de la nueva tarea
@@ -54,4 +57,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Renderizar las tareas al cargar la página
   renderTasks();
+
+  
 });
