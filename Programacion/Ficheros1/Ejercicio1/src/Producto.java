@@ -2,11 +2,11 @@ public class Producto {
 
     private int codigo;
     private String nombre;
-    private String cantidad;
+    private int cantidad;
     private double precio;
     
 
-    public Producto (String nombre, String cantidad, int  codigo, double precio) {
+    public Producto (String nombre, int cantidad, int  codigo, double precio) {
         this.nombre = nombre;
         this.cantidad = cantidad;
         this.codigo = codigo;
@@ -29,11 +29,11 @@ public class Producto {
         this.nombre = nombre;
     }
 
-    public String getCantidad() {
+    public int getCantidad() {
         return cantidad;
     }
 
-    public void setCantidad(String cantidad) {
+    public void setCantidad(int cantidad) {
         this.cantidad = cantidad;
     }
 

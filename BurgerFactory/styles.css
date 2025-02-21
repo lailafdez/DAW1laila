@@ -1,0 +1,59 @@
+.container {  display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
+    gap: 0px 0px;
+    grid-auto-flow: row;
+    grid-template-areas:
+      "h1 h2 h3"
+      "h4 h5 h6"
+      "h7 h8 h9"
+      "h10 h11 h12";
+  }
+ 
+  .h1 {
+    grid-area: h1;
+}
+ 
+  .h2 {
+    grid-area: h2;
+}
+ 
+  .h3 {
+    grid-area: h3;
+}
+ 
+  .h4 {
+    grid-area: h4;
+}
+ 
+  .h5 {
+    grid-area: h5;
+}
+ 
+  .h6 {
+    grid-area: h6;
+}
+ 
+  .h7 {
+    grid-area: h7;
+}
+ 
+  .h8 {
+    grid-area: h8;
+}
+ 
+  .h9 {
+    grid-area: h9;
+}
+ 
+  .h10 {
+    grid-area: h10;
+}
+ 
+  .h11 {
+    grid-area: h11;
+}
+ 
+  .h12 {
+    grid-area: h12;
+}
