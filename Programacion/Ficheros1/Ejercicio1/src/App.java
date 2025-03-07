@@ -44,7 +44,7 @@ public class App {
             switch (opcion) {
                 case "1":
                     try {
-                        System.out.println("Escribe el nombre del producto: ");
+                            System.out.println("Escribe el nombre del producto: ");
                         String nombre = reader.nextLine();
                         System.out.println("Escribe la cantidad que te vas a llevar de ese producto: ");
                         int cantidad = reader.nextInt();
