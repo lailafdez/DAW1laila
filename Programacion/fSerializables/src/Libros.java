@@ -49,9 +49,9 @@ public class Libros implements Serializable {
     @Override
     public String toString() {
         return " Libros {" +
+                " ISBN = " + isbn +
                 " Título= " + titulo +
                 " Autor= " + autor +
-                " ISBN = " + isbn +
                 " Fecha de publicación= " + fecha_publicacion +
                 '}';
     }

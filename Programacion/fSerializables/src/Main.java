@@ -1,7 +1,9 @@
 import java.io.*;
 import java.util.InputMismatchException;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Scanner;
+import java.util.regex.Pattern;
 
 public class Main {
     public static void main(String[] args) {
@@ -9,119 +11,135 @@ public class Main {
         LinkedList<Libros> libros = new LinkedList<>();
         Libros libros1;
 
-        try (FileWriter file = new FileWriter("./resources/Biblioteca.dat", false);
-             BufferedWriter writer = new BufferedWriter(file);) {
+        try {
+            FileOutputStream file = new FileOutputStream("./resources/Biblioteca.dat", false);
+            ObjectOutputStream buffer = new ObjectOutputStream(file);
 
-            writer.write("Lista de libros");
-            writer.newLine();
+            buffer.writeObject("Lista de Libros");
 
-        }catch (IOException e) {
+        } catch (IOException e) {
             System.out.println(e.getMessage());
         }
 
-            String opcion = "";
-            Scanner reader = new Scanner(System.in);
-            do {
-                System.out.println("1 - Crear libro y registrarlo en biblioteca");
-                System.out.println("2 - Ver libros existentes en biblioteca");
-                System.out.println("3 - Eliminar libro en biblioteca");
-                System.out.println("4 - Guardar libro en fichero");
-                System.out.println("5 - Guardar y salir");
-                opcion = reader.nextLine();
+        String isbn;
+        String titulo;
+        String autor;
+        String fecha_publicacion;
+        String opcion = "";
+        Scanner reader = new Scanner(System.in);
+        do {
+            System.out.println("1 - Crear libro y guardarlo en biblioteca");
+            System.out.println("2 - Ver libros existentes en biblioteca");
+            System.out.println("3 - Eliminar libro en biblioteca");
+            System.out.println("4 - Guardar y salir");
+            opcion = reader.nextLine();
 
-                switch (opcion) {
-                    case "1":
-
-                        //crear el libro
-                        try {
-                            System.out.println("Escribe el titulo del libro: ");
-                            String titulo = reader.nextLine();
-                            System.out.println("Nombre del autor del libro: ");
-                            String autor = reader.nextLine();
+            switch (opcion) {
+                case "1":
+                    //crear el libro
+                    try {
+                        do {
                             System.out.println("Escribe el codigo del libro (ISBN): ");
-                            String isbn = reader.nextLine();
-                            System.out.println("Escribe la fecha de publicacion del libro: ");
-                            String fecha_publicacion = reader.nextLine();
+                            isbn = reader.nextLine();
+                        } while (!isbnUnico(libros, isbn));
 
-                            libros.add(new Libros(titulo, autor, isbn, fecha_publicacion));
-                            System.out.println("El libro ha sido creado correctamente.");
+                        System.out.println("Escribe el titulo del libro: ");
+                        titulo = reader.nextLine();
 
-                        } catch (InputMismatchException e) {
-                            System.out.println("Formato de dato introducido incorrecto");
-                        }
+                        System.out.println("Nombre del autor del libro: ");
+                        autor = reader.nextLine();
 
-                        //abrir el fichero
-                        FileOutputStream file;
-                        ObjectOutputStream buffer;
+                        System.out.println("Escribe la fecha de publicacion del libro: ");
+                        fecha_publicacion = reader.nextLine();
 
-                        try {
-                            file = new FileOutputStream("./resources/Biblioteca.dat");
-                            buffer = new ObjectOutputStream(file);
-                        }catch (IOException e) {
-                            System.out.println("Error al abrir el fichero");
-                            System.out.println(e.getMessage());
-                            return;
-                        }
+                        libros.add(new Libros(isbn, titulo, autor, fecha_publicacion));
+                        System.out.println("El libro ha sido creado correctamente.");
 
-                        //guardar el libro en el fichero
-                        try {
-                            buffer.writeObject(libros);
-                            System.out.println("Libro guardado correctamente en la biblioteca.");
-                        } catch (IOException e) {
-                            System.out.println("Error al escribir en el fichero");
-                            System.out.println(e.getMessage());
-                        }
+                    } catch (InputMismatchException e) {
+                        System.out.println("Formato de dato introducido incorrecto");
+                    }
 
-                        //cerrar el fichero
-                        try {
-                            buffer.close();
-                            file.close();
-                        } catch (IOException e) {
-                            System.out.println("Error al cerrar el fichero");
-                            System.out.println(e.getMessage());
-                        }
+                    //abrir el fichero
+                    FileOutputStream file;
+                    ObjectOutputStream buffer;
 
-                        break;
-                    case "2":
-                        System.out.println("Listado de libros:");
-                        libros.forEach(System.out::println);
-                        break;
-                    case "3":
+                    try {
+                        file = new FileOutputStream("./resources/Biblioteca.dat");
+                        buffer = new ObjectOutputStream(file);
+                    } catch (IOException e) {
+                        System.out.println("Error al abrir el fichero");
+                        System.out.println(e.getMessage());
+                        return;
+                    }
 
-                        //lista de todos los libros
-                        System.out.println("Libros disponibles:");
-                        libros.forEach(System.out::println);
+                    //guardar el libro en el fichero
+                    try {
+                        buffer.writeObject(libros);
+                        System.out.println("Libro guardado correctamente en la biblioteca.");
+                    } catch (IOException e) {
+                        System.out.println("Error al escribir en el fichero");
+                        System.out.println(e.getMessage());
+                    }
 
-                        //eliminar el producto
-                        try {
-                            System.out.println("Escribe el ISBN del libro que desea eliminar: ");
-                            String isbnEliminar = reader.nextLine();
-                            boolean eliminado = eliminarLibro(libros, isbnEliminar);
+                    //cerrar el fichero
+                    try {
+                        buffer.close();
+                        file.close();
+                    } catch (IOException e) {
+                        System.out.println("Error al cerrar el fichero");
+                        System.out.println(e.getMessage());
+                    }
+                    break;
 
-                            if (eliminado) {
-                                System.out.println("Libro eliminado correctamente en la biblioteca");
-                            } else {
-                                System.out.println("Libro no disponible en la biblioteca");
-                            }
-                        } catch (Exception e) {
-                            System.out.println("Escribe un ISBN que exista");
-                        }
+                case "2":
+                    System.out.println("Listado de libros:");
+                    libros.forEach(System.out::println);
+                    break;
 
-                        break;
-                    case "4":
-                        break;
-                    case "5":
-                        break;
-                }
-            } while (!opcion.equals("5"));
-        }
-        public static boolean eliminarLibro (LinkedList <Libros> libro, String isbn) {
-            for (Libros libros : libro) {
-                if (libros.getIsbn() == isbn) {
-                    libro.remove(libros);
-                    return true;
-                }
+                case "3":
+                    //lista de todos los libros
+                    System.out.println("Libros disponibles:");
+                    libros.forEach(System.out::println);
+
+                    //eliminar el producto
+                    try {
+                        System.out.println("Escribe el isbn del libro:");
+                        isbn = reader.nextLine();
+                        eliminarLibro(libros, isbn);
+                    } catch (InputMismatchException e) {
+                        System.out.println("ISBN incorrecto");
+                    }
+
+                    break;
+                case "4":
+                    System.out.println("Guardando informacion y saliendo del programa...");
+                    break;
+                default:
+                    System.out.println("Opcion incorrrecta");
             }
-            return false;
-        }
+        } while (!opcion.equals("4"));
     }
+
+    public static boolean eliminarLibro(LinkedList<Libros> libros, String isbn) {
+        Iterator<Libros> iterator = libros.iterator();
+        while (iterator.hasNext()) {
+            Libros libro1 = iterator.next();
+            if (libro1.getIsbn().equals(isbn)) {
+                iterator.remove();
+                System.out.println("Libro eliminado correctamente en la biblioteca");
+                return true;
+            }
+        }
+        System.out.println("Libro no encontrado");
+        return false;
+    }
+
+    public static boolean isbnUnico(LinkedList<Libros> libros, String isbn) {
+        for (Libros isbnUnico : libros) {
+            if (isbnUnico.getIsbn().equals(isbn)) {
+                System.out.println("El ISBN " + isbn + " ya existe en la biblioteca");
+            }
+        }
+        return true;
+    }
+}
