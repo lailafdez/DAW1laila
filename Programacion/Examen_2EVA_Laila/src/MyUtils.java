@@ -5,7 +5,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class MyUtils {
-
     public static double leerDoublePantalla(String mensaje){
         Scanner reader = new Scanner(System.in);
         System.out.println(mensaje);
@@ -17,7 +16,6 @@ public class MyUtils {
         System.out.println(mensaje);
     }
 
-
     public static String leerTextoPantalla(String mensaje){
         Scanner reader = new Scanner(System.in);
         System.out.println(mensaje);
@@ -28,7 +26,7 @@ public class MyUtils {
     public static boolean comprobarPatron(String patron, String texto)
     {
         boolean isOk = false;
-        Pattern pat = Pattern.compile(patron); 
+        Pattern pat = Pattern.compile(patron);
         Matcher mat = pat.matcher(texto);
         isOk = mat.matches();
         return isOk;
@@ -37,10 +35,10 @@ public class MyUtils {
     public static String comprobarPatronRepetidamente(String patron, String mensaje){
         boolean isOk = false;
         String texto;
-        do { 
+        do {
             texto = MyUtils.leerTextoPantalla(mensaje);
             isOk = MyUtils.comprobarPatron(patron, texto);
-            if(!isOk){
+            if (!isOk){
                 MyUtils.imprimir("El formato es incorrecto");
             }
             else {
@@ -59,4 +57,5 @@ public class MyUtils {
         LocalDate fechaLocalDate = LocalDate.parse(fecha, formatter);
         return fechaLocalDate;
     }
+
 }
