@@ -8,14 +8,14 @@ public class Producto {
     private boolean aplicarDto;
 
     public Producto(String referencia, String descripcion, String tipo,
-                    double precio, int descuento, int iva, boolean aplicarDto) {
+                    double precio, int descuento, int iva) {
         this.referencia = referencia;
         this.descripcion = descripcion;
         this.tipo = tipo;
         this.precio = precio;
         this.descuento = descuento;
         this.iva = iva;
-        this.aplicarDto = aplicarDto;
+        this.aplicarDto = false;
     }
 
     public String getReferencia() {
@@ -34,20 +34,20 @@ public class Producto {
         this.descripcion = descripcion;
     }
 
+    public int getIva() {
+        return iva;
+    }
+
+    public void setIva(int iva) {
+        this.iva = iva;
+    }
+
     public String getTipo() {
         return tipo;
     }
 
     public void setTipo(String tipo) {
         this.tipo = tipo;
-    }
-
-    public double getPrecio() {
-        return precio;
-    }
-
-    public void setPrecio(double precio) {
-        this.precio = precio;
     }
 
     public int getDescuento() {
@@ -58,12 +58,12 @@ public class Producto {
         this.descuento = descuento;
     }
 
-    public int getIva() {
-        return iva;
+    public double getPrecio() {
+        return precio;
     }
 
-    public void setIva(int iva) {
-        this.iva = iva;
+    public void setPrecio(double precio) {
+        this.precio = precio;
     }
 
     public boolean isAplicarDto() {
@@ -76,14 +76,13 @@ public class Producto {
 
     @Override
     public String toString() {
-        return "Producto {" +
+        return "Producto{" +
                 "Referencia = " + referencia +
                 ", Descripcion = " + descripcion +
                 ", Tipo = " + tipo +
                 ", Precio = " + precio +
                 ", Descuento = " + descuento +
                 ", IVA = " + iva +
-                ", Aplicar Dto = " + aplicarDto +
                 '}';
     }
 }
